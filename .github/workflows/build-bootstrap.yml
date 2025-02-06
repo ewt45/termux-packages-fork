@@ -22,6 +22,8 @@ jobs:
     steps:
       - name: Git clone
         uses: actions/checkout@v4
+        with:
+          ref: 'termux-x11-modified'
       - name: Create bootstrap archive
         run: ./scripts/run-docker.sh ./scripts/build-bootstraps.sh --architectures aarch64 --add termux-x11-nightly,xkeyboard-config
       - name: Store artifacts

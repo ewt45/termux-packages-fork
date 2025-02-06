@@ -103,9 +103,8 @@ extract_debs() {
 	local package_tmpdir
 	local deb
 	local file
-	# 最终放到bootstraps里的包。一些构建时依赖不需要，而且很占空间。
- 	local real_needed_packages="termux-x11-nightly xkeyboard-config x11-repo \
-  		apt bash bzip2 ca-certificates command-not-found coreutils curl dash debianutils dialog diffutils dos2unix dpkg ed findutils gawk gpgv grep gzip inetutils less libandroid-glob libandroid-selinux libandroid-support libassuan libbz2 libc++ libcap-ng libcurl libevent libgcrypt libgmp libgnutls libgpg-error libiconv libidn2 liblz4 liblzma libmd libmpfr libnettle libnghttp2 libnghttp3 libnpth libsmartcols libssh2 libtirpc libunbound libunistring lsof nano ncurses net-tools openssl patch pcre2 procps psmisc readline resolv-conf sed tar termux-am-socket termux-am termux-exec termux-keyring termux-licenses termux-tools unzip util-linux xxhash xz-utils zlib zstd "
+	# 最终放到bootstraps里的包。一些构建时依赖不需要，而且很占空间. 注意第二行开头不要用tab否则apt前没有空格了
+ 	local real_needed_packages="termux-x11-nightly xkeyboard-config x11-repo apt bash bzip2 ca-certificates command-not-found coreutils curl dash debianutils dialog diffutils dos2unix dpkg ed findutils gawk gpgv grep gzip inetutils less libandroid-glob libandroid-selinux libandroid-support libassuan libbz2 libc++ libcap-ng libcurl libevent libgcrypt libgmp libgnutls libgpg-error libiconv libidn2 liblz4 liblzma libmd libmpfr libnettle libnghttp2 libnghttp3 libnpth libsmartcols libssh2 libtirpc libunbound libunistring lsof nano ncurses net-tools openssl patch pcre2 procps psmisc readline resolv-conf sed tar termux-am-socket termux-am termux-exec termux-keyring termux-licenses termux-tools unzip util-linux xxhash xz-utils zlib zstd "
 
 	cd "$TERMUX_BUILT_DEBS_DIRECTORY"
 

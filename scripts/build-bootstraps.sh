@@ -424,7 +424,7 @@ main() {
 
 		# Core utilities.
 		PACKAGES+=("bash") # Used by `termux-bootstrap-second-stage.sh`
-		PACKAGES+=("libbz2")#为啥bzip2找不到还会用呢
+		PACKAGES+=("libbz2") #为啥bzip2找不到还会用呢
 		if ! ${BOOTSTRAP_ANDROID10_COMPATIBLE}; then
 			PACKAGES+=("command-not-found")
 		else

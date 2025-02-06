@@ -137,7 +137,7 @@ extract_debs() {
 		fi
 
 		# build-bootstraps不像generate-bootstraps,只能手动去掉多余的构建时依赖了。
-		if [[ " $real_needed_packages " == *" $current_package_name "* ]]; then
+		if [[ ! " $real_needed_packages " == *" $current_package_name "* ]]; then
   			echo "[*] Skipping build dependency package '$deb'..."
 	        	continue
 	        fi

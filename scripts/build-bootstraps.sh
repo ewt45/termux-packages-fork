@@ -103,6 +103,8 @@ extract_debs() {
 	local package_tmpdir
 	local deb
 	local file
+	# 最终放到bootstraps里的包。一些构建时依赖不需要，而且很占空间. 注意第二行开头不要用tab否则apt前没有空格了
+ 	local real_needed_packages="termux-x11-nightly xkeyboard-config x11-repo apt bash bzip2 ca-certificates command-not-found coreutils curl dash debianutils dialog diffutils dos2unix dpkg ed findutils gawk gpgv grep gzip inetutils less libandroid-glob libandroid-selinux libandroid-support libassuan libbz2 libc++ libcap-ng libcurl libevent libgcrypt libgmp libgnutls libgpg-error libiconv libidn2 liblz4 liblzma libmd libmpfr libnettle libnghttp2 libnghttp3 libnpth libsmartcols libssh2 libtirpc libunbound libunistring lsof nano ncurses net-tools openssl patch pcre2 procps psmisc readline resolv-conf sed tar termux-am-socket termux-am termux-exec termux-keyring termux-licenses termux-tools unzip util-linux xxhash xz-utils zlib zstd "
 
 	cd "$TERMUX_BUILT_DEBS_DIRECTORY"
 
@@ -130,6 +132,12 @@ extract_debs() {
 
 		if [[ "$current_package_name" == *"-static" ]]; then
 			echo "[*] Skipping static package '$deb'..."
+			continue
+		fi
+
+		# build-bootstraps不像generate-bootstraps,只能手动去掉多余的构建时依赖了。
+		if [[ ! " $real_needed_packages " == *" $current_package_name "* ]]; then
+  			echo "[*] Skipping build dependency package '$deb'..."
 			continue
 		fi
 
@@ -426,7 +434,7 @@ main() {
 
 		# Core utilities.
 		PACKAGES+=("bash") # Used by `termux-bootstrap-second-stage.sh`
-		PACKAGES+=("bzip2")
+		PACKAGES+=("libbz2") # bzip2是子包 找不到
 		if ! ${BOOTSTRAP_ANDROID10_COMPATIBLE}; then
 			PACKAGES+=("command-not-found")
 		else

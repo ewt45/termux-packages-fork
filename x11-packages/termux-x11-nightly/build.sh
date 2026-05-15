@@ -2,10 +2,10 @@ TERMUX_PKG_HOMEPAGE=https://github.com/termux/termux-x11
 TERMUX_PKG_DESCRIPTION="Termux X11 add-on."
 TERMUX_PKG_LICENSE="GPL-3.0"
 TERMUX_PKG_MAINTAINER="Twaik Yont @twaik"
-TERMUX_PKG_VERSION="1.03.01"
-TERMUX_PKG_REVISION=5
-TERMUX_PKG_SRCURL=https://github.com/termux/termux-x11/archive/25c8dbc3e8cbf08c9dd233b29adbe1e3a1df52f4.tar.gz
-TERMUX_PKG_SHA256=8626aab0900d208f2ca484b5053ae5b952eff55537a4424042a35d6e935c8c04
+TERMUX_PKG_VERSION=99.00.00
+TERMUX_PKG_REVISION=1
+TERMUX_PKG_SRCURL=https://github.com/ewt45/termux-x11-fork/archive/ff8002a15ea5b40c8516e41f618c4cf3d1aeb99b.tar.gz
+TERMUX_PKG_SHA256=c1fccfcc15c69301ece9f5e61299a0474a520bc1108dc6ad47e6e307290da89c
 TERMUX_PKG_AUTO_UPDATE=false
 TERMUX_PKG_PLATFORM_INDEPENDENT=true
 TERMUX_PKG_BUILD_IN_SRC=true
@@ -22,7 +22,7 @@ termux_step_make() {
 
 termux_step_make_install() {
 	# Downloading full JDK to compile 7kb apk seems excessive, let's download a prebuilt.
-	local LOADER_URL="https://github.com/termux/termux-x11/releases/download/nightly/termux-x11-nightly-1.03.01-0-any.pkg.tar.xz"
+	local LOADER_URL="https://github.com/ewt45/termux-x11-fork/releases/download/aar-250203/termux-x11-nightly-99.00.00-any.pkg.tar.xz"
 	install -t "$TERMUX_PREFIX/bin" -m 755 termux-x11 termux-x11-preference
 	mkdir -p "$TERMUX_PREFIX/libexec/termux-x11"
 	wget -qO- "$LOADER_URL" | tar -OJxf - --wildcards "*loader.apk" > "$TERMUX_PREFIX/libexec/termux-x11/loader.apk"

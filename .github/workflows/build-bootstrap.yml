@@ -11,10 +11,10 @@ jobs:
     permissions:
       contents: read # actions/upload-artifact doesn't need contents: write
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        arch:
-          - aarch64
+    # strategy:
+      # matrix:
+      #   arch:
+      #     - aarch64
           # - arm
           # - i686
           # - x86_64
@@ -22,8 +22,11 @@ jobs:
     steps:
       - name: Git clone
         uses: actions/checkout@v4
+        with:
+          ref: 'termux-x11-modified'
       - name: Create bootstrap archive
-        run: ./scripts/run-docker.sh ./scripts/build-bootstraps.sh --architectures aarch64 --add termux-x11-nightly xkeyboard-config
+      #要手动设置 TERMUX_PACKAGE_MANAGER
+        run: ./scripts/run-docker.sh env TERMUX_PACKAGE_MANAGER=apt ./scripts/build-bootstraps.sh --architectures aarch64 --add termux-x11-nightly,xkeyboard-config
       - name: Store artifacts
         uses: actions/upload-artifact@v4
         with:

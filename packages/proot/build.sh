@@ -10,16 +10,18 @@ TERMUX_PKG_REVISION=71
 TERMUX_PKG_SRCURL=https://github.com/termux/proot/archive/${_COMMIT}.zip
 TERMUX_PKG_SHA256=9f2cc32e60be6c2a09bade03f98e22bb27ccecda926c8a74979df03ae755b1dd
 TERMUX_PKG_AUTO_UPDATE=false
-TERMUX_PKG_DEPENDS="libtalloc"
+# 改为静态依赖，直接合并到二进制文件中
+TERMUX_PKG_DEPENDS="libtalloc-static"
 TERMUX_PKG_SUGGESTS="proot-distro"
 TERMUX_PKG_BUILD_IN_SRC=true
 TERMUX_PKG_EXTRA_MAKE_ARGS="-C src"
 
 # Install loader in libexec instead of extracting it every time
-export PROOT_UNBUNDLE_LOADER=$TERMUX_PREFIX/libexec/proot
+# 不导出loader export PROOT_UNBUNDLE_LOADER=$TERMUX_PREFIX/libexec/proot
 
 termux_step_pre_configure() {
 	CPPFLAGS+=" -DARG_MAX=131072"
+	LDFLAGS+=" -static -ltalloc" # 将依赖放入二进制文件
 }
 
 termux_step_post_make_install() {
